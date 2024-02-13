@@ -3,10 +3,10 @@ This repository is for Team6's Group Project for Course 567 on the topic of a Sh
 
 ## How to setup environment
 
-What to install:
-Node.js : [Node.JS Link](https://nodejs.org/en/download/)
-MongoDB/Compass : [MongoDB Link](https://www.mongodb.com/try/download/community) *I install Compass to use as a DB GUI*
-Postman : [Postman Link](https://www.postman.com/downloads/) *Its not required, I just like it to test requests*
+What to install:<br />
+Node.js : [Node.JS Link](https://nodejs.org/en/download/)<br />
+MongoDB/Compass : [MongoDB Link](https://www.mongodb.com/try/download/community) *I install Compass to use as a DB GUI*<br />
+Postman : [Postman Link](https://www.postman.com/downloads/) *Its not required, I just like it to test requests*<br />
 
 Once you have installed the following, you will need to clone the repo to wherever you please.
 Then you will need to install the matching packages, to do so open whatever command line interface you use.
