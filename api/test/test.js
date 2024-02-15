@@ -3,7 +3,7 @@ const chai = require("chai");
 const chaiHttp = require("chai-http");
 const app = require("../app");
 chai.should();
-
+// WORK IN PROGRESS
 chai.use(chaiHttp);
 
 describe("Deals", () => {

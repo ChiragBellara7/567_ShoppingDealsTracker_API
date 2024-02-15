@@ -1,6 +1,7 @@
 const deal = require("../models/deal");
 const dealService = require("../services/dealService");
-
+// This will get all the deals in the database on success.
+// On failure it will return the error of 500 and what the error was as a status message.
 exports.getAllDeals = async (req, res) => {
     try {
         const deals = await dealService.getAllDeals();
@@ -10,6 +11,8 @@ exports.getAllDeals = async (req, res) => {
     }
 };
 
+// This will create a new deal in the database based on the data fed to it on success.
+// On failure it will return the error of 500 and what the error was as a status message.
 exports.createDeal = async (req, res) => {
     try{
         const deal = await dealService.createDeal(req.body);
@@ -19,6 +22,8 @@ exports.createDeal = async (req, res) => {
     }
 };
 
+// This will get the deal based on the inputed ID in the database on success.
+// On failure it will return the error of 500 and what the error was as a status message.
 exports.getDealById = async (req,res)=>{
     try{
         const deal = await dealService.getDealbyID(req.params.id);
@@ -28,6 +33,8 @@ exports.getDealById = async (req,res)=>{
     }
 };
 
+// This will update a deal based on an ID the database on success.
+// On failure it will return the error of 500 and what the error was as a status message.
 exports.updateDeal = async (req, res) => {
     try{
         const deal = await dealService.updateDeal(req.params.id, req.body);
@@ -37,6 +44,8 @@ exports.updateDeal = async (req, res) => {
     }
 };
 
+// This will delete a specific deal based on ID in the database on success.
+// On failure it will return the error of 500 and what the error was as a status message.
 exports.deleteDeal = async (req,res) => {
     try{
         const deal = await dealService.deleteDeal(req.params.id);
