@@ -55,3 +55,13 @@ exports.deleteDeal = async (req,res) => {
     }
 };
 
+// This will delete a specific deal based on ID in the database on success.
+// On failure it will return the error of 500 and what the error was as a status message.
+exports.filterDeals = async (req, res) => {
+  try {
+    const deals = await dealService.getFilteredDeals(req.query);
+    res.json({ data: deals, status: "success" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
