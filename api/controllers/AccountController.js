@@ -1,5 +1,6 @@
 const account = require("../models/account");
 const accountService = require("../services/accountService");
+const { createHash } = require('crypto')
 
 exports.getAllAccounts = async (req, res) => {
     try {
@@ -10,10 +11,24 @@ exports.getAllAccounts = async (req, res) => {
     }
 };
 
+// exports.createAccount = async (req, res) => {
+//     try{
+//         const account = await accountService.createAccount(createHash('sha256').update(req.body).digest('base64'));
+//         res.json({data: account, status: "success"});
+//     }catch (err) {
+//         res.status(500).json({error: err.message})
+//     }
+// };
+
+//▲
+//Both styles need to be tested to check if it properly hashes the entire account information so none of it is visible until
+//unhashed on the frontend and compared.
+//▼
+
 exports.createAccount = async (req, res) => {
     try{
-        const account = await accountService.createAccount(req.body);
-        res.json({data: account, status: "success"});
+        const account = await accountService.createAccount(createHash('sha256').update(req.body).digest('base64'));
+        res.json({data: createHash('sha256').update(account).digest('base64'), status: "success"});
     }catch (err) {
         res.status(500).json({error: err.message})
     }
