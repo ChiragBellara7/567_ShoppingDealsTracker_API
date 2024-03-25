@@ -26,3 +26,13 @@ exports.updateDeal = async (id,deal) => {
 exports.deleteDeal = async (id) => {
     return await DealModel.findByIdAndDelete(id);
 }
+
+exports.getFilteredDealsWithPrice = async (min, max) => {
+  return await DealModel.find({
+    $and: [{ price: { $gte: min } }, { price: { $lte: max } }],
+  });
+};
+
+exports.getFilteredDealsWithTags = async (tags) => {
+  return await DealModel.find({ category: { $in: tags } });
+};
