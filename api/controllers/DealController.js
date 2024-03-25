@@ -55,11 +55,30 @@ exports.deleteDeal = async (req,res) => {
     }
 };
 
-// This will delete a specific deal based on ID in the database on success.
+// This will return the deals that satisfy the given price range criteria on success.
 // On failure it will return the error of 500 and what the error was as a status message.
-exports.filterDeals = async (req, res) => {
+exports.filterDealsWithPrice = async (req, res) => {
   try {
-    const deals = await dealService.getFilteredDeals(req.query);
+    var minPrice = req.body.min;
+    var maxPrice = req.body.max;
+    const deals = await dealService.getFilteredDealsWithPrice(
+      minPrice,
+      maxPrice
+    );
+    res.json({ data: deals, status: "success" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// This will return the deals that satisfy the given category criteria on success.
+// On failure it will return the error of 500 and what the error was as a status message.
+exports.filterDealsWithTags = async (req, res) => {
+  try {
+    // console.log(req.body);
+    // console.log(req.body.tags.split(" "));
+    var tags = req.body.tags.split(" ");
+    const deals = await dealService.getFilteredDealsWithTags(tags);
     res.json({ data: deals, status: "success" });
   } catch (err) {
     res.status(500).json({ error: err.message });

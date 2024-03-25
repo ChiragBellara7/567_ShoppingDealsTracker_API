@@ -20,12 +20,10 @@ app.use("/api/accounts",accountRouter)
 
 const mongoose = require("mongoose");
 
- 
-
-
 mongoose.connect(
     process.env.MONGODB_URI || "mongodb://localhost:27017/"
 )
+// Local Testing mongoose.connect("mongodb://localhost:27017/Shopping_Deals_Tracker");
 
 module.exports = app;
 
