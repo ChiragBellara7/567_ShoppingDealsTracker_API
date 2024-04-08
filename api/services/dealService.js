@@ -36,3 +36,6 @@ exports.getFilteredDealsWithPrice = async (min, max) => {
 exports.getFilteredDealsWithTags = async (tags) => {
   return await DealModel.find({ category: { $in: tags } });
 };
+
+
+

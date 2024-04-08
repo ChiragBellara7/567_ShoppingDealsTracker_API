@@ -84,3 +84,19 @@ exports.filterDealsWithTags = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.searchDealsByKeyword = async (req, res) => {
+    const { keyword } = req.query;
+    try {
+        const deals = await dealService.find({
+            $or: [
+                { name: { $regex: keyword, $options: 'i' } }, // Case-insensitive search by name 
+                { shortDesc: { $regex: keyword, $options: 'i' } } // Case-insensitive search by ShortDesc
+            ]
+        });
+        res.json({data: deal, status: "success"}); 
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({error: err.message});
+    }
+};
