@@ -7,6 +7,7 @@ const {
     deleteDeal,
     filterDealsWithPrice,
     filterDealsWithTags,
+    searchDealsByKeyword,
 } = require("../controllers/DealController");
 
 // this is where we use the express.Router() function to create out routes and
@@ -17,5 +18,6 @@ router.route("/").get(getAllDeals).post(createDeal);
 router.route("/:id").get(getDealById).put(updateDeal).delete(deleteDeal);
 router.route("/filtered/tags").get(filterDealsWithTags);
 router.route("/filtered/price").get(filterDealsWithPrice);
+router.route("/search").get(searchDealsByKeyword);
 
 module.exports = router;
