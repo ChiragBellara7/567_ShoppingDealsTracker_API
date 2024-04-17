@@ -1,34 +1,26 @@
 const account = require("../models/account");
 const accountService = require("../services/accountService");
-const { createHash } = require('crypto')
+// const { createHash } = require('crypto')
 
 exports.getAllAccounts = async (req, res) => {
     try {
-        const accounts = await accountService.getAllDeals();
+        const accounts = await accountService.getAllAccounts();
         res.json({data: accounts, status: "success"});
     } catch (err){
         res.status(500).json({error: err.message});
     }
 };
 
-// exports.createAccount = async (req, res) => {
-//     try{
-//         const account = await accountService.createAccount(createHash('sha256').update(req.body).digest('base64'));
-//         res.json({data: account, status: "success"});
-//     }catch (err) {
-//         res.status(500).json({error: err.message})
-//     }
-// };
-
-//▲
-//Both styles need to be tested to check if it properly hashes the entire account information so none of it is visible until
-//unhashed on the frontend and compared.
-//▼
-
 exports.createAccount = async (req, res) => {
+    console.log("this shit stupid")
     try{
-        const account = await accountService.createAccount(createHash('sha256').update(req.body).digest('base64'));
-        res.json({data: createHash('sha256').update(account).digest('base64'), status: "success"});
+        let newUser = new account();
+        newUser.username = req.body.username;
+        newUser.password = req.body.password;
+        newUser.setPassword(req.body.password);
+        const accounts = await accountService.createAccount(newUser);
+        // account.setPassword(req.body.password)
+        res.json({data: accounts, status: "success"});
     }catch (err) {
         res.status(500).json({error: err.message})
     }
@@ -37,7 +29,10 @@ exports.createAccount = async (req, res) => {
 exports.getAccountById = async (req,res)=>{
     try{
         const account = await accountService.getAccountbyID(req.params.id);
-        res.json({data: account, status: "success"});
+        if (account.validPassword(req.body.password)){
+            res.json({status: "success"});
+        }
+        // res.json({data: account, status: "success"});
     }catch (err){
         res.status(500).json({error: err.message});
     }
