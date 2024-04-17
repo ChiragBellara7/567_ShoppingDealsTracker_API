@@ -18,6 +18,6 @@ router.route("/").get(getAllDeals).post(createDeal);
 router.route("/:id").get(getDealById).put(updateDeal).delete(deleteDeal);
 router.route("/filtered/tags").get(filterDealsWithTags);
 router.route("/filtered/price").get(filterDealsWithPrice);
-router.route("/search").get(searchDealsByKeyword);
+router.route("/search/:keyword").get(searchDealsByKeyword);
 
 module.exports = router;

@@ -37,5 +37,14 @@ exports.getFilteredDealsWithTags = async (tags) => {
   return await DealModel.find({ category: { $in: tags } });
 };
 
+exports.searchDealsByKeywords = async (keyword) => {
+  const deals = await DealModel.find({
+    $or: [
+      { name: { $regex: keyword, $options: "i" } }, // Case-insensitive search by name
+      { shortDesc: { $regex: keyword, $options: "i" } }, // Case-insensitive search by ShortDesc
+    ],
+  });
+  return deals;
+};
 
 

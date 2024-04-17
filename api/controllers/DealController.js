@@ -75,10 +75,12 @@ exports.filterDealsWithPrice = async (req, res) => {
 // On failure it will return the error of 500 and what the error was as a status message.
 exports.filterDealsWithTags = async (req, res) => {
   try {
-    // console.log(req.body);
-    // console.log(req.body.tags.split(" "));
     var tags = req.body.tags.split(" ");
-    const deals = await dealService.getFilteredDealsWithTags(tags);
+    var updated_tags = tags.map(function (e) {
+      str = e.charAt(0).toUpperCase() + e.slice(1);
+      return str;
+    });
+    const deals = await dealService.getFilteredDealsWithTags(updated_tags);
     res.json({ data: deals, status: "success" });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -86,17 +88,14 @@ exports.filterDealsWithTags = async (req, res) => {
 };
 
 exports.searchDealsByKeyword = async (req, res) => {
-    const { keyword } = req.query;
-    try {
-        const deals = await dealService.find({
-            $or: [
-                { name: { $regex: keyword, $options: 'i' } }, // Case-insensitive search by name 
-                { shortDesc: { $regex: keyword, $options: 'i' } } // Case-insensitive search by ShortDesc
-            ]
-        });
-        res.json({data: deal, status: "success"}); 
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({error: err.message});
-    }
+  // console.log(req.params);
+  const keyword = req.params.keyword;
+  try {
+    const deals = await dealService.searchDealsByKeywords(keyword);
+    res.json({ data: deals, status: "success" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
 };
+
